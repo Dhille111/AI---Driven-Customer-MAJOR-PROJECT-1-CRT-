@@ -185,7 +185,8 @@ If your columns mirror standard consumer datasets (such as the Kaggle Marketing 
 <img width="1920" height="899" alt="image" src="https://github.com/user-attachments/assets/5a9e88d0-1ab3-4216-b9ed-ac1d511f532b" />
 
 
-### live url
+### live Demo url
+https://ai-driven-customer-major-project-1-crt-cjjc.onrender.com/
 
 
 
