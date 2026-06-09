@@ -199,9 +199,10 @@ def personalize():
         'recommendations': recs
     })
 
-if __name__ == '__main__':
-    init_default_data()
+# Initialize data on import so it's ready when Gunicorn starts
+init_default_data()
 
+if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
 
     app.run(
@@ -209,3 +210,4 @@ if __name__ == '__main__':
         port=port,
         debug=False
     )
+
