@@ -106,7 +106,28 @@ Open your web browser and go to:
 http://127.0.0.1:5000/
 ```
 
+### 6. 🌐 Deployment on Render
+This project is fully configured and ready for deployment to **Render**.
+
+#### Method A: Automatic Deployment (Recommended)
+We have included a `render.yaml` blueprint file that handles setup automatically:
+1. Make sure all changes are pushed to your GitHub repository.
+2. Go to [Render Dashboard](https://dashboard.render.com/) and click **New +** > **Blueprint**.
+3. Connect your GitHub repository and click **Approve**. Render will provision and launch the Flask service automatically!
+
+#### Method B: Manual Web Service Deployment
+If you prefer to set up a new Web Service manually:
+1. Click **New +** > **Web Service** on Render.
+2. Connect your GitHub repository.
+3. Configure the following settings:
+   - **Language/Runtime**: `Python`
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn app:app`
+4. Under **Advanced**, add the following environment variable:
+   - `PORT`: `10000`
+
 ---
+
 
 ## 🧪 Running Unit Tests
 
