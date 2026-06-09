@@ -156,3 +156,15 @@ If your columns mirror standard consumer datasets (such as the Kaggle Marketing 
 * `Complain` ➡️ `SupportTickets` (computed using poisson distribution mapping)
 * `Response` ➡️ `Churn` (mapped as `1 - Response`)
 * `Gender` & `Location` ➡️ Generated deterministically using the customer ID seed
+* ## output images
+* <img width="1920" height="1472" alt="image" src="https://github.com/user-attachments/assets/140e6622-ddca-4087-a19b-6056452a2caa" />
+<img width="1920" height="2213" alt="image" src="https://github.com/user-attachments/assets/803b5057-fedd-4fcd-94f7-88a0e20fe03d" />
+<img width="1920" height="1428" alt="image" src="https://github.com/user-attachments/assets/feb3621c-2322-44ec-b8f0-8d50c4592789" />
+<img width="1920" height="1491" alt="image" src="https://github.com/user-attachments/assets/31787bb8-a7ba-422b-a078-d4277758c48b" />
+<img width="1920" height="899" alt="image" src="https://github.com/user-attachments/assets/5a9e88d0-1ab3-4216-b9ed-ac1d511f532b" />
+
+
+### live url
+
+
+
