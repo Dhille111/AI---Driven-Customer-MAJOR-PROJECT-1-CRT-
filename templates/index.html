@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auralytics - AI-Driven Customer Intelligence Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i data-lucide="brain-circuit" class="logo-icon"></i>
+                </div>
+                <div class="brand-name">
+                    <h1>Auralytics</h1>
+                    <span>AI Customer Insights</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="dashboard" id="btn-tab-dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Executive Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="segmentation" id="btn-tab-segmentation">
+                    <i data-lucide="users"></i>
+                    <span>RFM Segmentation</span>
+                </button>
+                <button class="nav-item" data-tab="predictor" id="btn-tab-predictor">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Predictive Simulator</span>
+                </button>
+                <button class="nav-item" data-tab="campaigns" id="btn-tab-campaigns">
+                    <i data-lucide="mail"></i>
+                    <span>Personalized Actions</span>
+                </button>
+                <button class="nav-item" data-tab="dataset" id="btn-tab-dataset">
+                    <i data-lucide="database"></i>
+                    <span>Dataset Manager</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="model-status-chip">
+                    <span class="pulse-indicator"></span>
+                    <div class="status-info">
+                        <span class="status-title">Models Loaded</span>
+                        <span class="status-sub" id="model-accuracy-indicator">Accuracy: --</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <h2 id="page-title">Executive Dashboard</h2>
+                    <p class="header-subtitle" id="page-subtitle">Real-time behavior insights & business metrics</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-secondary" id="btn-reload-data">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>Reset Data</span>
+                    </button>
+                    <button class="btn btn-primary" id="btn-trigger-upload">
+                        <i data-lucide="upload"></i>
+                        <span>Upload Dataset</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab: Dashboard -->
+            <section class="tab-content active" id="tab-dashboard">
+                <!-- KPI Cards Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Total Active Customers</span>
+                            <div class="kpi-icon-wrapper blue">
+                                <i data-lucide="users"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-customers">0</div>
+                        <div class="kpi-footer">
+                            <span class="trend positive"><i data-lucide="trending-up"></i> +8.4%</span>
+                            <span class="timeframe">vs last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Customer Lifetime Revenue</span>
+                            <div class="kpi-icon-wrapper purple">
+                                <i data-lucide="dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-revenue">$0.00</div>
+                        <div class="kpi-footer">
+                            <span class="trend positive"><i data-lucide="trending-up"></i> +12.3%</span>
+                            <span class="timeframe">vs last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Average Order Value</span>
+                            <div class="kpi-icon-wrapper green">
+                                <i data-lucide="shopping-bag"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-aov">$0.00</div>
+                        <div class="kpi-footer">
+                            <span class="trend positive"><i data-lucide="trending-up"></i> +2.1%</span>
+                            <span class="timeframe">vs last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-title">Avg Customer Churn Rate</span>
+                            <div class="kpi-icon-wrapper red">
+                                <i data-lucide="user-x"></i>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-churn">0.0%</div>
+                        <div class="kpi-footer">
+                            <span class="trend negative"><i data-lucide="trending-down"></i> -1.8%</span>
+                            <span class="timeframe">vs last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="dashboard-charts-grid">
+                    <div class="glass-panel chart-panel large">
+                        <div class="panel-header">
+                            <h3>Revenue and Customer Growth Projection</h3>
+                            <span class="badge">AI Simulated Pattern</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-revenue-history"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel chart-panel">
+                        <div class="panel-header">
+                            <h3>Regional Sales Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-regional-dist"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-demographics-grid">
+                    <div class="glass-panel chart-panel">
+                        <div class="panel-header">
+                            <h3>Customer Age Breakdown</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-age-dist"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel chart-panel">
+                        <div class="panel-header">
+                            <h3>Engagement by Gender</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-gender-dist"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Segmentation -->
+            <section class="tab-content" id="tab-segmentation">
+                <div class="segmentation-intro">
+                    <div class="glass-panel intro-panel">
+                        <i data-lucide="sparkles" class="panel-decorator"></i>
+                        <h3>RFM & K-Means Customer Clustering</h3>
+                        <p>We analyze customer value using three dimensions: <strong>Recency</strong> (days since last purchase), <strong>Frequency</strong> (total count of purchases), and <strong>Monetary Value</strong> (total dollars spent). Our unsupervised K-Means algorithm partitions customers into 4 distinct groups to optimize marketing spend.</p>
+                    </div>
+                </div>
+
+                <div class="segmentation-charts-grid">
+                    <div class="glass-panel chart-panel double">
+                        <div class="panel-header">
+                            <h3>RFM 3D Cluster Visualizer (Sampled Customer Base)</h3>
+                            <span class="badge">Bubble Size = Monetary Spend</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-rfm-scatter"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel chart-panel">
+                        <div class="panel-header">
+                            <h3>Segment Composition</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-segment-distribution"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segments Stats Cards -->
+                <div class="segment-summary-grid" id="segment-summary-container">
+                    <!-- Dynamic segments statistics go here -->
+                </div>
+
+                <!-- Customer Listing -->
+                <div class="glass-panel table-panel">
+                    <div class="panel-header border-bottom">
+                        <h3>Customer Segmentation Directory</h3>
+                        <div class="table-actions">
+                            <select id="select-filter-segment" class="filter-select">
+                                <option value="All">All Segments</option>
+                                <option value="Champions">Champions</option>
+                                <option value="Loyal Customers">Loyal Customers</option>
+                                <option value="New / Promising">New / Promising</option>
+                                <option value="At Risk">At Risk</option>
+                            </select>
+                            <input type="text" id="input-search-customers" class="search-input" placeholder="Search Customer ID...">
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table" id="table-customers">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Location</th>
+                                    <th>Recency (Days)</th>
+                                    <th>Frequency</th>
+                                    <th>Monetary Spend</th>
+                                    <th>Support Tickets</th>
+                                    <th>Segment Tag</th>
+                                    <th>Churn Risk</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-customers-body">
+                                <!-- Dynamic records go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <span class="table-stats" id="table-stats-count">Showing 0 of 0 entries</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Predictor Simulator -->
+            <section class="tab-content" id="tab-predictor">
+                <div class="predictor-grid">
+                    <!-- Left: Form to simulate customer details -->
+                    <div class="glass-panel form-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Predictive Customer Simulator</h3>
+                            <button class="btn btn-secondary btn-sm" id="btn-load-random-simulator">
+                                <i data-lucide="random"></i>
+                                <span>Load Random Profile</span>
+                            </button>
+                        </div>
+                        <form id="form-predictor" class="simulator-form">
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="sim-age">Customer Age</label>
+                                    <input type="number" id="sim-age" min="18" max="100" value="34" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sim-recency">Recency (Days since last buy)</label>
+                                    <input type="number" id="sim-recency" min="1" max="365" value="45" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="sim-frequency">Frequency (Total purchases)</label>
+                                    <input type="number" id="sim-frequency" min="1" max="100" value="12" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sim-monetary">Monetary (Total spent $)</label>
+                                    <input type="number" id="sim-monetary" min="5" max="10000" value="750.00" step="0.01" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="sim-browsetime">Monthly Browse Time (mins)</label>
+                                    <input type="number" id="sim-browsetime" min="1" max="1000" value="180" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sim-tickets">Support Tickets Raised</label>
+                                    <input type="number" id="sim-tickets" min="0" max="20" value="1" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" id="btn-run-simulation">
+                                <i data-lucide="sparkles"></i>
+                                <span>Compute AI Risk & CLV</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Results Card -->
+                    <div class="glass-panel results-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>AI Engine Prediction Outputs</h3>
+                        </div>
+                        <div class="results-container">
+                            <div class="result-box">
+                                <span class="result-label">Predicted Churn Probability</span>
+                                <div class="gauge-container">
+                                    <div class="gauge-bar-bg">
+                                        <div class="gauge-bar-fill" id="prediction-churn-gauge" style="width: 0%"></div>
+                                    </div>
+                                    <div class="gauge-value-display">
+                                        <span id="prediction-churn-value">0%</span>
+                                        <span class="badge" id="prediction-churn-badge">Healthy</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-metric-grid">
+                                <div class="result-metric-card">
+                                    <span class="metric-label">Predicted Customer Lifetime Value (CLV)</span>
+                                    <span class="metric-value" id="prediction-clv">$0.00</span>
+                                    <span class="metric-help">Estimated future monetary value</span>
+                                </div>
+                                <div class="result-metric-card">
+                                    <span class="metric-label">Assigned Core Segment</span>
+                                    <span class="metric-value text-accent" id="prediction-segment">--</span>
+                                    <span class="metric-help">Based on RFM positioning</span>
+                                </div>
+                            </div>
+
+                            <div class="predicted-actions-box">
+                                <h4 class="box-title">Prescribed Marketing Campaign</h4>
+                                <div class="action-card-mini" id="predicted-action-card">
+                                    <p class="empty-state-text">Submit the simulation form to generate personalized recommendations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="predictor-models-grid">
+                    <div class="glass-panel chart-panel large">
+                        <div class="panel-header border-bottom">
+                            <h3>AI Model Explainer: Feature Importance</h3>
+                            <span class="badge">Random Forest Weights</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-feature-importance"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel stats-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Predictive Model Health Metrics</h3>
+                        </div>
+                        <div class="model-metrics-list">
+                            <div class="model-metric-item">
+                                <div class="metric-meta">
+                                    <span class="name">Churn Classifier (Random Forest)</span>
+                                    <span class="stat" id="accuracy-stat">Accuracy: --</span>
+                                </div>
+                                <p class="desc">Predicts the binary churn state. Trained on Recency, Frequency, Spend, Browse Time, and Support Tickets.</p>
+                            </div>
+                            
+                            <div class="model-metric-item">
+                                <div class="metric-meta">
+                                    <span class="name">CLV Regressor (Linear Regression)</span>
+                                    <span class="stat" id="r2-stat">R² Score: --</span>
+                                </div>
+                                <p class="desc">Calculates expected monetary yield from customer behavior profiles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Campaigns / Actions -->
+            <section class="tab-content" id="tab-campaigns">
+                <div class="campaign-header-row">
+                    <div class="campaign-selector-box">
+                        <label for="select-campaign-segment">Select Target Customer Segment:</label>
+                        <select id="select-campaign-segment" class="campaign-segment-select">
+                            <option value="Champions">Champions (VIP Customers)</option>
+                            <option value="Loyal Customers">Loyal Customers (Active Members)</option>
+                            <option value="New / Promising">New / Promising (Recent signups)</option>
+                            <option value="At Risk">At Risk (Dormant customers)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="campaign-selector-box">
+                        <label for="select-campaign-churn">Select Churn Risk Profile:</label>
+                        <select id="select-campaign-churn" class="campaign-churn-select">
+                            <option value="0.1">Low Risk (Healthy)</option>
+                            <option value="0.5">Medium Risk (Disengaged)</option>
+                            <option value="0.8">High Risk (Severe Warning)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campaign-content-grid">
+                    <!-- Action details and coupon details -->
+                    <div class="glass-panel recommendation-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Prescribed Loyalty Offer & Action</h3>
+                        </div>
+                        <div class="recommendation-content" id="campaign-recs-content">
+                            <!-- Dynamic recommendations fill here -->
+                        </div>
+                    </div>
+
+                    <!-- Email Campaign client preview -->
+                    <div class="glass-panel email-client-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Personalized Email Copy Preview</h3>
+                            <span class="badge green">Dynamic Auto-Generation</span>
+                        </div>
+                        <div class="email-client">
+                            <div class="email-header">
+                                <div class="email-row">
+                                    <span class="label">To:</span>
+                                    <span class="value" id="email-preview-to">customer_id@example.com</span>
+                                </div>
+                                <div class="email-row">
+                                    <span class="label">Subject:</span>
+                                    <span class="value text-highlight" id="email-preview-subject">Subject line</span>
+                                </div>
+                            </div>
+                            <div class="email-body">
+                                <pre id="email-preview-body">Loading email template...</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaign-simulation-box">
+                    <div class="glass-panel campaign-run-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Run Campaign Simulator</h3>
+                            <button class="btn btn-primary" id="btn-run-campaign">
+                                <i data-lucide="send"></i>
+                                <span>Dispatch Campaigns</span>
+                            </button>
+                        </div>
+                        
+                        <div class="campaign-run-results-wrapper" id="campaign-results-wrapper">
+                            <div class="empty-campaign-results">
+                                <i data-lucide="mail-search" class="large-icon"></i>
+                                <p>Click "Dispatch Campaigns" to simulate message delivery, open rates, and conversion feedback from this target cohort.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Dataset Manager -->
+            <section class="tab-content" id="tab-dataset">
+                <div class="dataset-grid">
+                    <!-- File upload panel -->
+                    <div class="glass-panel upload-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Upload Customer Cohort CSV</h3>
+                        </div>
+                        <div class="upload-area" id="drop-zone">
+                            <i data-lucide="cloud-upload" class="upload-icon"></i>
+                            <p class="upload-text">Drag & drop customer CSV file here or <span>browse files</span></p>
+                            <input type="file" id="file-uploader" accept=".csv" class="hidden-file-input">
+                        </div>
+                        
+                        <div class="upload-schema-guide">
+                            <h4>CSV Column Requirements</h4>
+                            <p>To train the predictive models, the CSV file must contain the following headers:</p>
+                            <ul class="schema-list">
+                                <li><code>CustomerID</code> - (Optional) Uniquely identifies customers.</li>
+                                <li><code>Age</code> - Age of the customer.</li>
+                                <li><code>Gender</code> - Customer gender (Male / Female / Non-binary).</li>
+                                <li><code>Location</code> - Customer region (e.g. North, South, East, West).</li>
+                                <li><code>Recency</code> - Days since last purchase.</li>
+                                <li><code>Frequency</code> - Number of purchases made.</li>
+                                <li><code>Monetary</code> - Lifetime spend in currency.</li>
+                                <li><code>BrowseTime</code> - Monthly minutes spent on storefront.</li>
+                                <li><code>SupportTickets</code> - Total helpdesk tickets filed.</li>
+                                <li><code>Churn</code> - (Binary 0 or 1) Customer churn classification status.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Dataset metadata panel -->
+                    <div class="glass-panel dataset-meta-panel">
+                        <div class="panel-header border-bottom">
+                            <h3>Active Dataset Information</h3>
+                        </div>
+                        <div class="dataset-meta-content">
+                            <div class="meta-row">
+                                <span class="label">Dataset Name:</span>
+                                <span class="value" id="dataset-name">Default Synthetic Customer Base</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="label">Total Row Count:</span>
+                                <span class="value" id="dataset-rows">1,000</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="label">Variables Processed:</span>
+                                <span class="value">10 Columns</span>
+                            </div>
+                            
+                            <div class="dataset-export-actions">
+                                <button class="btn btn-secondary btn-block" id="btn-restore-synthetic">
+                                    <i data-lucide="undo-2"></i>
+                                    <span>Restore Default Synthetic Data</span>
+                                </button>
+                            </div>
+                            
+                            <div class="dataset-stats-breakdown">
+                                <h4>Attribute Value Statistics</h4>
+                                <div class="stat-summary-bar">
+                                    <div class="bar-stat">
+                                        <span class="num" id="stat-mean-age">--</span>
+                                        <span class="lbl">Avg Customer Age</span>
+                                    </div>
+                                    <div class="bar-stat">
+                                        <span class="num" id="stat-mean-frequency">--</span>
+                                        <span class="lbl">Avg Purchases</span>
+                                    </div>
+                                    <div class="bar-stat">
+                                        <span class="num" id="stat-mean-spend">--</span>
+                                        <span class="lbl">Avg Spend</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <i data-lucide="info" id="toast-icon"></i>
+        <span id="toast-message">Notification message</span>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
