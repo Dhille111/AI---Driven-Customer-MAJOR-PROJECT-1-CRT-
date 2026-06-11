@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
@@ -15,6 +18,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar Navigation -->
@@ -28,7 +32,7 @@
                     <span>AI Customer Insights</span>
                 </div>
             </div>
-            
+
             <nav class="nav-menu">
                 <button class="nav-item active" data-tab="dashboard" id="btn-tab-dashboard">
                     <i data-lucide="layout-dashboard"></i>
@@ -51,7 +55,7 @@
                     <span>Dataset Manager</span>
                 </button>
             </nav>
-            
+
             <div class="sidebar-footer">
                 <div class="model-status-chip">
                     <span class="pulse-indicator"></span>
@@ -100,7 +104,7 @@
                             <span class="timeframe">vs last month</span>
                         </div>
                     </div>
-                    
+
                     <div class="kpi-card">
                         <div class="kpi-header">
                             <span class="kpi-title">Customer Lifetime Revenue</span>
@@ -114,7 +118,7 @@
                             <span class="timeframe">vs last month</span>
                         </div>
                     </div>
-                    
+
                     <div class="kpi-card">
                         <div class="kpi-header">
                             <span class="kpi-title">Average Order Value</span>
@@ -128,7 +132,7 @@
                             <span class="timeframe">vs last month</span>
                         </div>
                     </div>
-                    
+
                     <div class="kpi-card">
                         <div class="kpi-header">
                             <span class="kpi-title">Avg Customer Churn Rate</span>
@@ -175,7 +179,7 @@
                             <canvas id="chart-age-dist"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="glass-panel chart-panel">
                         <div class="panel-header">
                             <h3>Engagement by Gender</h3>
@@ -193,7 +197,10 @@
                     <div class="glass-panel intro-panel">
                         <i data-lucide="sparkles" class="panel-decorator"></i>
                         <h3>RFM & K-Means Customer Clustering</h3>
-                        <p>We analyze customer value using three dimensions: <strong>Recency</strong> (days since last purchase), <strong>Frequency</strong> (total count of purchases), and <strong>Monetary Value</strong> (total dollars spent). Our unsupervised K-Means algorithm partitions customers into 4 distinct groups to optimize marketing spend.</p>
+                        <p>We analyze customer value using three dimensions: <strong>Recency</strong> (days since last
+                            purchase), <strong>Frequency</strong> (total count of purchases), and <strong>Monetary
+                                Value</strong> (total dollars spent). Our unsupervised K-Means algorithm partitions
+                            customers into 4 distinct groups to optimize marketing spend.</p>
                     </div>
                 </div>
 
@@ -235,7 +242,8 @@
                                 <option value="New / Promising">New / Promising</option>
                                 <option value="At Risk">At Risk</option>
                             </select>
-                            <input type="text" id="input-search-customers" class="search-input" placeholder="Search Customer ID...">
+                            <input type="text" id="input-search-customers" class="search-input"
+                                placeholder="Search Customer ID...">
                         </div>
                     </div>
                     <div class="table-wrapper">
@@ -288,7 +296,7 @@
                                     <input type="number" id="sim-recency" min="1" max="365" value="45" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="sim-frequency">Frequency (Total purchases)</label>
@@ -296,10 +304,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="sim-monetary">Monetary (Total spent $)</label>
-                                    <input type="number" id="sim-monetary" min="5" max="10000" value="750.00" step="0.01" required>
+                                    <input type="number" id="sim-monetary" min="5" max="10000" value="750.00"
+                                        step="0.01" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="sim-browsetime">Monthly Browse Time (mins)</label>
@@ -336,7 +345,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="result-metric-grid">
                                 <div class="result-metric-card">
                                     <span class="metric-label">Predicted Customer Lifetime Value (CLV)</span>
@@ -353,7 +362,8 @@
                             <div class="predicted-actions-box">
                                 <h4 class="box-title">Prescribed Marketing Campaign</h4>
                                 <div class="action-card-mini" id="predicted-action-card">
-                                    <p class="empty-state-text">Submit the simulation form to generate personalized recommendations.</p>
+                                    <p class="empty-state-text">Submit the simulation form to generate personalized
+                                        recommendations.</p>
                                 </div>
                             </div>
                         </div>
@@ -370,7 +380,7 @@
                             <canvas id="chart-feature-importance"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="glass-panel stats-panel">
                         <div class="panel-header border-bottom">
                             <h3>Predictive Model Health Metrics</h3>
@@ -381,9 +391,10 @@
                                     <span class="name">Churn Classifier (Random Forest)</span>
                                     <span class="stat" id="accuracy-stat">Accuracy: --</span>
                                 </div>
-                                <p class="desc">Predicts the binary churn state. Trained on Recency, Frequency, Spend, Browse Time, and Support Tickets.</p>
+                                <p class="desc">Predicts the binary churn state. Trained on Recency, Frequency, Spend,
+                                    Browse Time, and Support Tickets.</p>
                             </div>
-                            
+
                             <div class="model-metric-item">
                                 <div class="metric-meta">
                                     <span class="name">CLV Regressor (Linear Regression)</span>
@@ -408,7 +419,7 @@
                             <option value="At Risk">At Risk (Dormant customers)</option>
                         </select>
                     </div>
-                    
+
                     <div class="campaign-selector-box">
                         <label for="select-campaign-churn">Select Churn Risk Profile:</label>
                         <select id="select-campaign-churn" class="campaign-churn-select">
@@ -453,7 +464,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="campaign-simulation-box">
                     <div class="glass-panel campaign-run-panel">
                         <div class="panel-header border-bottom">
@@ -463,11 +474,12 @@
                                 <span>Dispatch Campaigns</span>
                             </button>
                         </div>
-                        
+
                         <div class="campaign-run-results-wrapper" id="campaign-results-wrapper">
                             <div class="empty-campaign-results">
                                 <i data-lucide="mail-search" class="large-icon"></i>
-                                <p>Click "Dispatch Campaigns" to simulate message delivery, open rates, and conversion feedback from this target cohort.</p>
+                                <p>Click "Dispatch Campaigns" to simulate message delivery, open rates, and conversion
+                                    feedback from this target cohort.</p>
                             </div>
                         </div>
                     </div>
@@ -487,7 +499,7 @@
                             <p class="upload-text">Drag & drop customer CSV file here or <span>browse files</span></p>
                             <input type="file" id="file-uploader" accept=".csv" class="hidden-file-input">
                         </div>
-                        
+
                         <div class="upload-schema-guide">
                             <h4>CSV Column Requirements</h4>
                             <p>To train the predictive models, the CSV file must contain the following headers:</p>
@@ -524,14 +536,14 @@
                                 <span class="label">Variables Processed:</span>
                                 <span class="value">10 Columns</span>
                             </div>
-                            
+
                             <div class="dataset-export-actions">
                                 <button class="btn btn-secondary btn-block" id="btn-restore-synthetic">
                                     <i data-lucide="undo-2"></i>
                                     <span>Restore Default Synthetic Data</span>
                                 </button>
                             </div>
-                            
+
                             <div class="dataset-stats-breakdown">
                                 <h4>Attribute Value Statistics</h4>
                                 <div class="stat-summary-bar">
@@ -565,4 +577,5 @@
     <!-- Custom JS -->
     <script src="/static/js/app.js"></script>
 </body>
+
 </html>

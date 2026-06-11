@@ -5,7 +5,7 @@ let loadedCustomers = [];
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide Icons
     lucide.createIcons();
-    
+
     // Core App State
     initApp();
 });
@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function initApp() {
     // Tab switching
     setupTabs();
-    
+
     // API data initial load
     loadDashboardData();
-    
+
     // Setup event listeners
     setupEventListeners();
-    
+
     // Setup Drag and Drop Uploader
     setupUploader();
 }
@@ -32,7 +32,7 @@ function setupTabs() {
     const tabContents = document.querySelectorAll('.tab-content');
     const pageTitle = document.getElementById('page-title');
     const pageSubtitle = document.getElementById('page-subtitle');
-    
+
     const tabMeta = {
         'dashboard': { title: 'Executive Dashboard', subtitle: 'Real-time behavior insights & business metrics' },
         'segmentation': { title: 'RFM Segmentation Analysis', subtitle: 'AI-driven customer clustering based on Recency, Frequency & Monetary' },
@@ -44,20 +44,20 @@ function setupTabs() {
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             const tabId = item.getAttribute('data-tab');
-            
+
             // Toggle active classes
             navItems.forEach(n => n.classList.remove('active'));
             tabContents.forEach(c => c.classList.remove('active'));
-            
+
             item.classList.add('active');
             document.getElementById(`tab-${tabId}`).classList.add('active');
-            
+
             // Update Headers
             if (tabMeta[tabId]) {
                 pageTitle.textContent = tabMeta[tabId].title;
                 pageSubtitle.textContent = tabMeta[tabId].subtitle;
             }
-            
+
             // Specific tab entry actions
             if (tabId === 'segmentation') {
                 loadSegmentationData();
@@ -78,7 +78,7 @@ function setupEventListeners() {
     document.getElementById('btn-reload-data').addEventListener('click', () => {
         resetToDefaultDataset();
     });
-    
+
     // Secondary data reset on Dataset Tab
     document.getElementById('btn-restore-synthetic').addEventListener('click', () => {
         resetToDefaultDataset();
@@ -121,13 +121,13 @@ function showNotification(message, type = 'info') {
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toast-message');
     const toastIcon = document.getElementById('toast-icon');
-    
+
     // Set message
     toastMsg.textContent = message;
-    
+
     // Clear styles
     toast.className = 'toast show';
-    
+
     if (type === 'success') {
         toast.classList.add('success');
         toastIcon.setAttribute('data-lucide', 'circle-check');
@@ -137,9 +137,9 @@ function showNotification(message, type = 'info') {
     } else {
         toastIcon.setAttribute('data-lucide', 'info');
     }
-    
+
     lucide.createIcons();
-    
+
     setTimeout(() => {
         toast.classList.remove('show');
     }, 4000);
@@ -152,7 +152,7 @@ async function loadDashboardData() {
     try {
         const response = await fetch('/api/load-data');
         const data = await response.json();
-        
+
         if (data.success) {
             updateDashboardKPIs(data.stats);
             renderDashboardCharts(data.stats);
@@ -168,7 +168,7 @@ async function loadDashboardData() {
 
 function updateDashboardKPIs(stats) {
     document.getElementById('kpi-customers').textContent = stats.totalCustomers.toLocaleString();
-    document.getElementById('kpi-revenue').textContent = `$${stats.totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    document.getElementById('kpi-revenue').textContent = `$${stats.totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     document.getElementById('kpi-aov').textContent = `$${stats.avgOrderValue.toFixed(2)}`;
     document.getElementById('kpi-churn').textContent = `${stats.churnRate.toFixed(1)}%`;
 }
@@ -178,12 +178,12 @@ function updateDatasetMeta(stats) {
         document.getElementById('dataset-name').textContent = stats.datasetName || 'Default Synthetic Customer Base';
     }
     document.getElementById('dataset-rows').textContent = stats.totalCustomers.toLocaleString();
-    
+
     // Calculate realistic averages from the metrics
     const isCustom = stats.datasetName && stats.datasetName !== 'Default Synthetic Customer Base';
     const meanAge = isCustom ? '48' : '39';
     const meanFreq = isCustom ? '15.2' : '8.6';
-    
+
     document.getElementById('stat-mean-age').textContent = meanAge;
     document.getElementById('stat-mean-frequency').textContent = meanFreq;
     document.getElementById('stat-mean-spend').textContent = `$${stats.avgOrderValue.toFixed(0)}`;
@@ -203,7 +203,7 @@ function renderDashboardCharts(stats) {
     // 1. Revenue History Chart (Area Chart)
     destroyChart('revenueHistory');
     const ctxRevenue = document.getElementById('chart-revenue-history').getContext('2d');
-    
+
     // Create soft gradient for area fill
     const gradient = ctxRevenue.createLinearGradient(0, 0, 0, 240);
     gradient.addColorStop(0, 'rgba(99, 102, 241, 0.12)');
@@ -233,7 +233,7 @@ function renderDashboardCharts(stats) {
             maintainAspectRatio: false,
             plugins: {
                 legend: { display: false },
-                tooltip: { 
+                tooltip: {
                     backgroundColor: '#121215',
                     titleColor: '#fafafa',
                     bodyColor: '#a1a1aa',
@@ -247,19 +247,19 @@ function renderDashboardCharts(stats) {
                 }
             },
             scales: {
-                x: { 
-                    grid: { display: false }, 
-                    ticks: { color: '#71717a', font: { size: 10 } } 
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#71717a', font: { size: 10 } }
                 },
-                y: { 
-                    grid: { color: '#1f1f23' }, 
-                    ticks: { 
-                        color: '#71717a', 
+                y: {
+                    grid: { color: '#1f1f23' },
+                    ticks: {
+                        color: '#71717a',
                         font: { size: 10 },
-                        callback: function(value) {
-                            return '$' + (value >= 1000 ? (value/1000).toFixed(0) + 'k' : value);
+                        callback: function (value) {
+                            return '$' + (value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value);
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -285,16 +285,16 @@ function renderDashboardCharts(stats) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { 
-                    position: 'bottom', 
-                    labels: { 
-                        color: '#a1a1aa', 
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#a1a1aa',
                         font: { size: 10 },
                         padding: 12,
                         boxWidth: 6,
                         boxHeight: 6,
                         usePointStyle: true
-                    } 
+                    }
                 }
             },
             cutout: '75%'
@@ -349,16 +349,16 @@ function renderDashboardCharts(stats) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { 
-                    position: 'bottom', 
-                    labels: { 
-                        color: '#a1a1aa', 
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#a1a1aa',
                         font: { size: 10 },
                         padding: 12,
                         boxWidth: 6,
                         boxHeight: 6,
                         usePointStyle: true
-                    } 
+                    }
                 }
             },
             cutout: '75%'
@@ -373,7 +373,7 @@ async function loadSegmentationData() {
     try {
         const response = await fetch('/api/segmentation');
         const data = await response.json();
-        
+
         if (data.success) {
             loadedCustomers = data.customers;
             renderSegmentationSummaryCards(data.summary);
@@ -391,7 +391,7 @@ async function loadSegmentationData() {
 function renderSegmentationSummaryCards(summary) {
     const container = document.getElementById('segment-summary-container');
     container.innerHTML = '';
-    
+
     // Map of segment classes for styling
     const cssMap = {
         'Champions': 'champions',
@@ -404,7 +404,7 @@ function renderSegmentationSummaryCards(summary) {
         const cssClass = cssMap[name] || '';
         const card = document.createElement('div');
         card.className = `segment-summary-card ${cssClass}`;
-        
+
         card.innerHTML = `
             <div class="card-tag">${name}</div>
             <div class="card-metric-row">
@@ -453,16 +453,16 @@ function renderSegmentationCharts(data) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { 
-                    position: 'bottom', 
-                    labels: { 
-                        color: '#a1a1aa', 
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#a1a1aa',
                         font: { size: 10 },
                         padding: 12,
                         boxWidth: 6,
                         boxHeight: 6,
                         usePointStyle: true
-                    } 
+                    }
                 }
             },
             cutout: '75%'
@@ -509,14 +509,14 @@ function renderSegmentationCharts(data) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { 
-                    labels: { 
+                legend: {
+                    labels: {
                         color: '#a1a1aa',
                         font: { size: 10 },
                         boxWidth: 8,
                         boxHeight: 8,
                         usePointStyle: true
-                    } 
+                    }
                 },
                 tooltip: {
                     backgroundColor: '#121215',
@@ -529,7 +529,7 @@ function renderSegmentationCharts(data) {
                     padding: 10,
                     cornerRadius: 6,
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             const p = context.raw;
                             return `Recency: ${p.x}d, Freq: ${p.y} orders, Spend proxy: $${(p.r * 150).toFixed(0)}`;
                         }
@@ -555,7 +555,7 @@ function renderSegmentationCharts(data) {
 function populateCustomerTable(customers) {
     const tbody = document.getElementById('table-customers-body');
     tbody.innerHTML = '';
-    
+
     const countSpan = document.getElementById('table-stats-count');
     countSpan.textContent = `Showing ${customers.length} entries`;
 
@@ -568,7 +568,7 @@ function populateCustomerTable(customers) {
     if (segmentFilter !== 'All') {
         filtered = filtered.filter(c => c.Segment === segmentFilter);
     }
-    
+
     if (searchVal !== '') {
         filtered = filtered.filter(c => c.CustomerID.toLowerCase().includes(searchVal));
     }
@@ -595,7 +595,7 @@ function populateCustomerTable(customers) {
         const badgeClass = segmentClassMap[c.Segment] || '';
         const churnDotClass = c.Churn === 1 ? 'yes' : 'no';
         const churnText = c.Churn === 1 ? 'Yes' : 'No';
-        
+
         row.innerHTML = `
             <td><strong>${c.CustomerID}</strong></td>
             <td>${c.Age}</td>
@@ -626,13 +626,13 @@ async function loadPredictorData() {
     try {
         const response = await fetch('/api/model-stats');
         const data = await response.json();
-        
+
         if (data.success) {
             // Update models evaluation metrics
             document.getElementById('model-accuracy-indicator').textContent = `Accuracy: ${Math.round(data.stats.churn_accuracy * 100)}%`;
             document.getElementById('accuracy-stat').textContent = `Accuracy: ${(data.stats.churn_accuracy * 100).toFixed(1)}%`;
             document.getElementById('r2-stat').textContent = `R² Score: ${data.stats.clv_r2.toFixed(3)}`;
-            
+
             renderFeatureImportanceChart(data.stats.feature_importances);
         }
     } catch (err) {
@@ -647,11 +647,11 @@ function renderFeatureImportanceChart(importances) {
 
     destroyChart('featureImportance');
     const ctx = document.getElementById('chart-feature-importance').getContext('2d');
-    
+
     const sorted = Object.entries(importances).sort((a, b) => b[1] - a[1]);
     const labels = sorted.map(s => s[0]);
     const values = sorted.map(s => s[1]);
-    
+
     charts['featureImportance'] = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -700,7 +700,7 @@ function fillRandomProfile() {
     if (loadedCustomers.length === 0) return;
     const randomIdx = Math.floor(Math.random() * loadedCustomers.length);
     const customer = loadedCustomers[randomIdx];
-    
+
     // Generate browse time dynamically between 20 and 500 based on monetary
     const mockBrowseTime = Math.round(customer.Frequency * 20 + Math.random() * 80 + 30);
 
@@ -710,7 +710,7 @@ function fillRandomProfile() {
     document.getElementById('sim-monetary').value = customer.Monetary;
     document.getElementById('sim-browsetime').value = mockBrowseTime;
     document.getElementById('sim-tickets').value = customer.SupportTickets;
-    
+
     showNotification(`Loaded profile for Customer ID: ${customer.CustomerID}`, 'success');
 }
 
@@ -731,7 +731,7 @@ async function runPredictorSimulation() {
             body: JSON.stringify(payload)
         });
         const data = await response.json();
-        
+
         if (data.success) {
             updatePredictorResults(data.predictions, data.recommendations);
             showNotification('Simulation computed successfully.', 'success');
@@ -750,10 +750,10 @@ function updatePredictorResults(pred, rec) {
     const gaugeFill = document.getElementById('prediction-churn-gauge');
     const gaugeValue = document.getElementById('prediction-churn-value');
     const gaugeBadge = document.getElementById('prediction-churn-badge');
-    
+
     gaugeFill.style.width = `${percent}%`;
     gaugeValue.textContent = `${percent}%`;
-    
+
     // Gauge colors & badge labels based on risk
     if (percent < 30) {
         gaugeFill.style.background = 'var(--gradient-green)';
@@ -768,11 +768,11 @@ function updatePredictorResults(pred, rec) {
         gaugeBadge.className = 'badge red';
         gaugeBadge.textContent = 'Critical';
     }
-    
+
     // 2. Metrics CLV & Segment
-    document.getElementById('prediction-clv').textContent = `$${pred.clv.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    document.getElementById('prediction-clv').textContent = `$${pred.clv.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
     document.getElementById('prediction-segment').textContent = pred.simulated_segment;
-    
+
     // 3. Recommended Mini Action
     const actionCard = document.getElementById('predicted-action-card');
     actionCard.innerHTML = `
@@ -803,7 +803,7 @@ function loadCampaignsTab() {
 async function fetchCampaignDetails() {
     const segment = document.getElementById('select-campaign-segment').value;
     const churnRisk = parseFloat(document.getElementById('select-campaign-churn').value);
-    
+
     try {
         const response = await fetch('/api/personalize', {
             method: 'POST',
@@ -811,7 +811,7 @@ async function fetchCampaignDetails() {
             body: JSON.stringify({ segment, churn_risk: churnRisk })
         });
         const data = await response.json();
-        
+
         if (data.success) {
             updateCampaignView(data.recommendations, segment);
         }
@@ -822,7 +822,7 @@ async function fetchCampaignDetails() {
 
 function updateCampaignView(rec, segment) {
     const recsContent = document.getElementById('campaign-recs-content');
-    
+
     // Status colors
     const colorThemeMap = {
         'critical': 'var(--color-danger)',
@@ -830,7 +830,7 @@ function updateCampaignView(rec, segment) {
         'healthy': 'var(--color-success)'
     };
     const statusColor = colorThemeMap[rec.color_theme] || 'var(--text-accent)';
-    
+
     recsContent.innerHTML = `
         <div class="rec-block">
             <span class="lbl">Predicted Audience Churn Category</span>
@@ -845,7 +845,7 @@ function updateCampaignView(rec, segment) {
             <span class="val">${rec.channel}</span>
         </div>
     `;
-    
+
     // Update Email Preview client
     const emailTo = segment.toLowerCase().replace(/\s+/g, '_') + '_cohort@customer-list.com';
     document.getElementById('email-preview-to').textContent = emailTo;
@@ -856,7 +856,7 @@ function updateCampaignView(rec, segment) {
 function runCampaignSimulation() {
     const wrapper = document.getElementById('campaign-results-wrapper');
     const segment = document.getElementById('select-campaign-segment').value;
-    
+
     // Start simulation UI progress spinner
     wrapper.innerHTML = `
         <div class="simulating-progress" style="text-align: center; color: var(--text-secondary);">
@@ -865,12 +865,12 @@ function runCampaignSimulation() {
         </div>
     `;
     lucide.createIcons();
-    
+
     // Simple simulated delay
     setTimeout(() => {
         // Compute realistic statistics based on segment type
         let openRate, clickRate, conversionRate, revenueGen;
-        
+
         if (segment === 'Champions') {
             openRate = 72.4; clickRate = 45.1; conversionRate = 18.2;
             revenueGen = '$4,820.00';
@@ -884,7 +884,7 @@ function runCampaignSimulation() {
             openRate = 29.5; clickRate = 8.4; conversionRate = 3.6;
             revenueGen = '$780.00';
         }
-        
+
         wrapper.innerHTML = `
             <div class="campaign-metrics-row">
                 <div class="campaign-stat-box">
@@ -944,7 +944,7 @@ function setupUploader() {
     dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
         dropZone.classList.remove('dragover');
-        
+
         const files = e.dataTransfer.files;
         if (files.length > 0) {
             handleFileUpload(files[0]);
@@ -975,23 +975,23 @@ async function handleFileUpload(file) {
             body: formData
         });
         const data = await response.json();
-        
+
         if (data.success) {
             showNotification('Custom CSV dataset processed & ML models retrained!', 'success');
-            
+
             // Set dataset metadata name
             document.getElementById('dataset-name').textContent = file.name;
-            
+
             // Reload Executive dashboard and segment details
             updateDashboardKPIs(data.stats);
             renderDashboardCharts(data.stats);
             updateDatasetMeta(data.stats);
-            
+
             // Fetch segmentation & models data in background
             loadedCustomers = [];
             loadSegmentationData();
             loadPredictorData();
-            
+
         } else {
             showNotification(data.message, 'error');
         }
@@ -1006,19 +1006,19 @@ async function resetToDefaultDataset() {
     try {
         const response = await fetch('/api/load-data');
         const data = await response.json();
-        
+
         if (data.success) {
             document.getElementById('dataset-name').textContent = 'Default Synthetic Customer Base';
             updateDashboardKPIs(data.stats);
             renderDashboardCharts(data.stats);
             updateDatasetMeta(data.stats);
-            
+
             loadedCustomers = [];
-            
+
             // Reset filters
             document.getElementById('select-filter-segment').value = 'All';
             document.getElementById('input-search-customers').value = '';
-            
+
             // Force reload current active tab content
             const activeTab = document.querySelector('.nav-item.active').getAttribute('data-tab');
             if (activeTab === 'segmentation') {
@@ -1026,7 +1026,7 @@ async function resetToDefaultDataset() {
             } else if (activeTab === 'predictor') {
                 loadPredictorData();
             }
-            
+
             showNotification('Default customer cohort restored.', 'success');
         }
     } catch (err) {

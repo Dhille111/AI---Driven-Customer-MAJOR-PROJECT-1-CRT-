@@ -7,18 +7,26 @@
     --font-display: 'Outfit', sans-serif;
 
     /* Color Palette */
-    --bg-main: #09090b;          /* Pure Zinc-950 */
-    --bg-sidebar: #0c0c0e;       /* Custom deep off-black */
-    --bg-card: #121215;          /* Elevated panel gray */
-    --bg-card-hover: #16161a;    /* Subtle hover background */
-    --border-color: #1e1e24;     /* Extremely clean thin border */
+    --bg-main: #09090b;
+    /* Pure Zinc-950 */
+    --bg-sidebar: #0c0c0e;
+    /* Custom deep off-black */
+    --bg-card: #121215;
+    /* Elevated panel gray */
+    --bg-card-hover: #16161a;
+    /* Subtle hover background */
+    --border-color: #1e1e24;
+    /* Extremely clean thin border */
     --border-hover: #2e2e38;
-    
+
     /* Text Color Hierarchy */
-    --text-primary: #fafafa;     /* High contrast zinc-50 */
-    --text-secondary: #a1a1aa;   /* Muted zinc-400 */
-    --text-muted: #71717a;       /* Darker zinc-500 */
-    
+    --text-primary: #fafafa;
+    /* High contrast zinc-50 */
+    --text-secondary: #a1a1aa;
+    /* Muted zinc-400 */
+    --text-muted: #71717a;
+    /* Darker zinc-500 */
+
     /* Accents (Intense Indigo / Violet) */
     --primary: #6366f1;
     --primary-light: #818cf8;
@@ -26,10 +34,14 @@
     --primary-glow: rgba(99, 102, 241, 0.08);
 
     /* Semantic States (Desaturated Premium Hues) */
-    --color-info: #3b82f6;       /* Blue */
-    --color-success: #10b981;    /* Emerald */
-    --color-warning: #f59e0b;    /* Amber */
-    --color-danger: #ef4444;     /* Rose */
+    --color-info: #3b82f6;
+    /* Blue */
+    --color-success: #10b981;
+    /* Emerald */
+    --color-warning: #f59e0b;
+    /* Amber */
+    --color-danger: #ef4444;
+    /* Rose */
 
     /* Metrics & Transitions */
     --sidebar-width: 260px;
@@ -90,13 +102,16 @@ body::after {
     width: 6px;
     height: 6px;
 }
+
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #27272a;
     border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #3f3f46;
 }
@@ -207,7 +222,8 @@ body::after {
 
 .nav-item.active {
     color: #ffffff;
-    background-color: #1e1b4b; /* Deep rich violet tint */
+    background-color: #1e1b4b;
+    /* Deep rich violet tint */
     border: 1px solid rgba(99, 102, 241, 0.15);
 }
 
@@ -251,8 +267,15 @@ body::after {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(2.5); opacity: 0; }
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
 }
 
 .status-info {
@@ -411,9 +434,23 @@ body::after {
     letter-spacing: 0.02em;
 }
 
-.badge.green { background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.3); color: #34d399; }
-.badge.red { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.3); color: #f87171; }
-.badge.orange { background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3); color: #fbbf24; }
+.badge.green {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #34d399;
+}
+
+.badge.red {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.badge.orange {
+    background: rgba(245, 158, 11, 0.08);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+}
 
 /* ==========================================================================
    Tab Layout Transitions
@@ -428,8 +465,15 @@ body::after {
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==========================================================================
@@ -472,6 +516,7 @@ body::after {
 .kpi-icon-wrapper {
     color: var(--text-muted);
 }
+
 .kpi-icon-wrapper i {
     width: 16px;
     height: 16px;
@@ -499,10 +544,23 @@ body::after {
     gap: 2px;
     font-weight: 600;
 }
-.trend.positive { color: var(--color-success); }
-.trend.negative { color: var(--color-danger); }
-.trend i { width: 12px; height: 12px; }
-.timeframe { color: var(--text-muted); }
+
+.trend.positive {
+    color: var(--color-success);
+}
+
+.trend.negative {
+    color: var(--color-danger);
+}
+
+.trend i {
+    width: 12px;
+    height: 12px;
+}
+
+.timeframe {
+    color: var(--text-muted);
+}
 
 /* Dashboard Grid Layouts */
 .dashboard-charts-grid {
@@ -604,10 +662,21 @@ body::after {
     display: inline-block;
 }
 
-.segment-summary-card.champions .card-tag::before { background-color: var(--color-success); }
-.segment-summary-card.loyal .card-tag::before { background-color: var(--color-info); }
-.segment-summary-card.promising .card-tag::before { background-color: var(--color-warning); }
-.segment-summary-card.at-risk .card-tag::before { background-color: var(--color-danger); }
+.segment-summary-card.champions .card-tag::before {
+    background-color: var(--color-success);
+}
+
+.segment-summary-card.loyal .card-tag::before {
+    background-color: var(--color-info);
+}
+
+.segment-summary-card.promising .card-tag::before {
+    background-color: var(--color-warning);
+}
+
+.segment-summary-card.at-risk .card-tag::before {
+    background-color: var(--color-danger);
+}
 
 .card-metric-row {
     display: flex;
@@ -621,11 +690,18 @@ body::after {
     border-bottom: none;
 }
 
-.card-metric-row .label { color: var(--text-secondary); }
-.card-metric-row .val { font-weight: 600; color: #ffffff; }
+.card-metric-row .label {
+    color: var(--text-secondary);
+}
+
+.card-metric-row .val {
+    font-weight: 600;
+    color: #ffffff;
+}
 
 /* Table View styling */
-.filter-select, .search-input {
+.filter-select,
+.search-input {
     background: #18181b;
     border: 1px solid var(--border-color);
     color: var(--text-primary);
@@ -637,7 +713,8 @@ body::after {
     transition: var(--transition-smooth);
 }
 
-.filter-select:focus, .search-input:focus {
+.filter-select:focus,
+.search-input:focus {
     border-color: #52525b;
 }
 
@@ -691,24 +768,50 @@ body::after {
     font-weight: 600;
 }
 
-.tag-badge.champions { background: rgba(16, 185, 129, 0.06); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
-.tag-badge.loyal { background: rgba(59, 130, 246, 0.06); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
-.tag-badge.promising { background: rgba(245, 158, 11, 0.06); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
-.tag-badge.at-risk { background: rgba(239, 68, 68, 0.06); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+.tag-badge.champions {
+    background: rgba(16, 185, 129, 0.06);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.tag-badge.loyal {
+    background: rgba(59, 130, 246, 0.06);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.tag-badge.promising {
+    background: rgba(245, 158, 11, 0.06);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.tag-badge.at-risk {
+    background: rgba(239, 68, 68, 0.06);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
 
 .churn-dot {
     display: inline-flex;
     align-items: center;
     gap: 5px;
 }
+
 .churn-dot::before {
     content: '';
     width: 5px;
     height: 5px;
     border-radius: 50%;
 }
-.churn-dot.no::before { background-color: var(--color-success); }
-.churn-dot.yes::before { background-color: var(--color-danger); }
+
+.churn-dot.no::before {
+    background-color: var(--color-success);
+}
+
+.churn-dot.yes::before {
+    background-color: var(--color-danger);
+}
 
 /* ==========================================================================
    Predictive Behavior Simulator View
@@ -943,7 +1046,8 @@ body::after {
     color: var(--text-secondary);
 }
 
-.campaign-segment-select, .campaign-churn-select {
+.campaign-segment-select,
+.campaign-churn-select {
     background: #18181b;
     border: 1px solid var(--border-color);
     color: var(--text-primary);
@@ -1130,9 +1234,21 @@ body::after {
     padding: 3px 6px;
     border-radius: 2px;
 }
-.log-entry.success { background: rgba(16, 185, 129, 0.04); color: #34d399; }
-.log-entry.open { background: rgba(59, 130, 246, 0.04); color: #60a5fa; }
-.log-entry.bounce { background: rgba(239, 68, 68, 0.04); color: #f87171; }
+
+.log-entry.success {
+    background: rgba(16, 185, 129, 0.04);
+    color: #34d399;
+}
+
+.log-entry.open {
+    background: rgba(59, 130, 246, 0.04);
+    color: #60a5fa;
+}
+
+.log-entry.bounce {
+    background: rgba(239, 68, 68, 0.04);
+    color: #f87171;
+}
 
 /* ==========================================================================
    Dataset Tab View
@@ -1180,7 +1296,9 @@ body::after {
     font-weight: 500;
 }
 
-.hidden-file-input { display: none; }
+.hidden-file-input {
+    display: none;
+}
 
 .upload-schema-guide {
     padding: 0 20px;
@@ -1230,8 +1348,14 @@ body::after {
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.meta-row .label { color: var(--text-secondary); }
-.meta-row .value { color: #ffffff; font-weight: 600; }
+.meta-row .label {
+    color: var(--text-secondary);
+}
+
+.meta-row .value {
+    color: #ffffff;
+    font-weight: 600;
+}
 
 .dataset-export-actions {
     margin-top: 8px;
@@ -1307,8 +1431,24 @@ body::after {
     opacity: 1;
 }
 
-.toast i { width: 16px; height: 16px; color: var(--primary-light); }
-.toast.success { border-color: var(--color-success); }
-.toast.success i { color: var(--color-success); }
-.toast.danger { border-color: var(--color-danger); }
-.toast.danger i { color: var(--color-danger); }
+.toast i {
+    width: 16px;
+    height: 16px;
+    color: var(--primary-light);
+}
+
+.toast.success {
+    border-color: var(--color-success);
+}
+
+.toast.success i {
+    color: var(--color-success);
+}
+
+.toast.danger {
+    border-color: var(--color-danger);
+}
+
+.toast.danger i {
+    color: var(--color-danger);
+}
